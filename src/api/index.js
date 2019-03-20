@@ -1,7 +1,8 @@
 import axios from 'axios'
 import data from './mock'
 
-const baseURL = ``
+// const baseURL = `http://957427771.natapp1.cc`
+const baseURL = `http://localhost:3001`
 
 export const getContent = () => {
   return new Promise(resolved => {
@@ -26,4 +27,12 @@ export const sendMessage = data =>
     url: '/message',
     baseURL,
     data
+  })
+
+export const Login = params =>
+  axios({
+    method: 'POST',
+    url: '/login',
+    baseURL,
+    params
   })

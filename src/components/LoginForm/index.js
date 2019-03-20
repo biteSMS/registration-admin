@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { withRouter } from 'react-router-dom'
+import { Login } from '../../api'
 import {
   Input,
   Button,
@@ -6,7 +8,7 @@ import {
   message
 } from 'antd'
 
-export const LoginForm = () => {
+const LoginForm = (props) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
@@ -45,12 +47,23 @@ export const LoginForm = () => {
         type="primary"
         onClick={() => {
           if (username === '' || password === '') return message.error('用户名或密码不能为空！')
-          console.log({
+          let params = {
             username,
             password
-          })
+          }
+          Login(params)
+            .then(res => {
+              let status = res.data.status
+              if (status === 200) {
+                window.sessionStorage.setItem('jwt', res.headers.jwt)
+                console.log(res)
+                // return props.history.push("/")
+              }
+            })
         }}
       >登陆</Button>
     </div>
   )
 }
+
+export default withRouter(LoginForm)

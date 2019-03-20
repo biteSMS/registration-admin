@@ -1,4 +1,5 @@
 import React from 'react'
+import { Redirect } from 'react-router-dom'
 import { Push } from '../../components'
 import {
   Layout
@@ -7,6 +8,9 @@ import {
 const { Header, Content, Footer } = Layout
 
 export const Admin = () => {
+  
+  // if (true) return (<Redirect to='/login' />)
+
   return (
     <>
       <Layout>
