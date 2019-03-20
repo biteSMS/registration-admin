@@ -1,14 +1,26 @@
 import axios from 'axios'
 import data from './mock'
 
-// const baseURL = `http://957427771.natapp1.cc`
-const baseURL = `http://localhost:3001`
+const baseURL = `http://957427771.natapp1.cc`
 
-export const getContent = () => {
-  return new Promise(resolved => {
-    resolved(data)
+// export const getContent = () => {
+//   return new Promise(resolved => {
+//     resolved(data)
+//   })
+// }
+
+export const getContent = () =>
+  axios({
+    method: 'POST',
+    url: '/content',
+    baseURL,
+    headers: {
+      jwt: window.sessionStorage.getItem('jwt')
+    }
   })
-}
+  .then(res => {
+    return res.data
+  })
 
 export const getCurrentMembers = async () => {
   let res = await getContent()
@@ -26,7 +38,10 @@ export const sendMessage = data =>
     method: 'POST',
     url: '/message',
     baseURL,
-    data
+    data,
+    headers: {
+      jwt: window.sessionStorage.getItem('jwt')
+    }
   })
 
 export const Login = params =>

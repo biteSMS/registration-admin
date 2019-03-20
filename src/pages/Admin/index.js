@@ -9,7 +9,7 @@ const { Header, Content, Footer } = Layout
 
 export const Admin = () => {
   
-  // if (true) return (<Redirect to='/login' />)
+  if (!window.sessionStorage.getItem('jwt')) return (<Redirect to='/login' />)
 
   return (
     <>

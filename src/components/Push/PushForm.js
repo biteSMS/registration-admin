@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { sendMessage } from '../../api'
 import {
   Drawer,
   Input,
@@ -90,7 +91,7 @@ export const PushForm = (props) => {
             type="primary"
             icon="wechat"
             onClick={() => {
-              console.log({
+              let sendData = {
                 stuids: getStuids(props.selectedStu),
                 template,
                 school,
@@ -98,6 +99,10 @@ export const PushForm = (props) => {
                 time,
                 content,
                 remark
+              }
+              console.log(sendData)
+              sendMessage(sendData).then(res => {
+                console.log(res)
               })
             }}
           >确认推送</Button>

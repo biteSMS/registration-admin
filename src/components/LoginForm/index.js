@@ -11,6 +11,7 @@ import {
 const LoginForm = (props) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
 
   return (
     <div style={{
@@ -45,20 +46,23 @@ const LoginForm = (props) => {
       <Button
         style={{ width: '64%', marginTop: 25 }}
         type="primary"
+        loading={loading}
         onClick={() => {
           if (username === '' || password === '') return message.error('用户名或密码不能为空！')
           let params = {
             username,
             password
           }
+          setLoading(true)
           Login(params)
             .then(res => {
               let status = res.data.status
+              setLoading(false)
               if (status === 200) {
                 window.sessionStorage.setItem('jwt', res.headers.jwt)
-                console.log(res)
-                // return props.history.push("/")
+                return props.history.push("/")
               }
+              return message.error('用户名或密码错误！')
             })
         }}
       >登陆</Button>
