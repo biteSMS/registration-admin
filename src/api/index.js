@@ -1,5 +1,4 @@
 import axios from 'axios'
-import data from './mock'
 
 const baseURL = `http://957427771.natapp1.cc`
 

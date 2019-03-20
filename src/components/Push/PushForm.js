@@ -91,8 +91,9 @@ export const PushForm = (props) => {
             type="primary"
             icon="wechat"
             onClick={() => {
+              let stuids = JSON.stringify(getStuids(props.selectedStu))
               let sendData = {
-                stuids: getStuids(props.selectedStu),
+                stuids,
                 template,
                 school,
                 role,
