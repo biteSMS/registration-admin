@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
+import { withRouter } from 'react-router-dom'
 import { sendMessage } from '../../api'
 import {
   Drawer,
   Input,
   Row,
   Col,
-  Button
+  Button,
+  message
 } from 'antd'
 
 const getStuids = stuArr => {
@@ -14,13 +16,14 @@ const getStuids = stuArr => {
   return arr
 }
 
-export const PushForm = (props) => {
+const PushFormI = (props) => {
   const [template, setTemplate] = useState('')
   const [school, setSchool] = useState('')
   const [role, setRole] = useState('')
   const [time, setTime] = useState('')
   const [content, setContent] = useState('')
   const [remark, setRemark] = useState('')
+  const [loading, setLoading] = useState(false)
 
   const onClose = () => props.onClose()
 
@@ -90,7 +93,9 @@ export const PushForm = (props) => {
           <Button
             type="primary"
             icon="wechat"
+            loading={loading}
             onClick={() => {
+              setLoading(true)
               let stuids = JSON.stringify(getStuids(props.selectedStu))
               let sendData = {
                 stuids,
@@ -101,9 +106,20 @@ export const PushForm = (props) => {
                 content,
                 remark
               }
-              console.log(sendData)
-              sendMessage(sendData).then(res => {
-                console.log(res)
+              sendMessage(sendData)
+              .then(res => {
+                setLoading(false)
+                if (res.data.status === 200) {
+                  message.success('推送完成！')
+                  props.onPush()
+                  onClose()
+                } else {
+                  message.error('推送失败，请重新登陆！')
+                }
+              })
+              .catch(err => {
+                message.error('推送失败，请重新登陆！')
+                props.history.push('/login')
               })
             }}
           >确认推送</Button>
@@ -112,3 +128,7 @@ export const PushForm = (props) => {
     </Drawer>
   )
 }
+
+const PushForm = withRouter(PushFormI)
+
+export { PushForm }

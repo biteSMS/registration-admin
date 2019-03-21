@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
+import { withRouter } from 'react-router-dom'
 import { getCurrentMembers } from '../../api'
 import { PushForm } from './PushForm'
 import {
   Table,
-  Button
+  Button,
+  message
 } from 'antd'
 
 const columns = [
@@ -47,20 +49,28 @@ const columns = [
   }
 ]
 
-export const Push = () => {
+const PushI = ({ history }) => {
   const [data, setData] = useState([])
   const [selectedStu, setSelectedStu] = useState([])
   const [visible, setVisible] = useState(false)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    getCurrentMembers().then(res => {
-      setData(res)
-      setLoading(false)
-    })
+    getData()
   }, [])
 
   const onClose = () => setVisible(false)
+  const getData = () => {
+    getCurrentMembers()
+    .then(res => {
+      setData(res)
+      setLoading(false)
+    })
+    .catch(err => {
+      message.error('身份验证错误，请重新登陆！')
+      history.push('/login')
+    })
+  }
   const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
       setSelectedStu(selectedRows)
@@ -89,8 +99,13 @@ export const Push = () => {
       <PushForm
         visible={visible}
         onClose={onClose}
+        onPush={getData}
         selectedStu={selectedStu}
       />
     </>
   )
 }
+
+const Push = withRouter(PushI)
+
+export { Push }

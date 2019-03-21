@@ -8,7 +8,7 @@ import {
   message
 } from 'antd'
 
-const LoginForm = (props) => {
+const LoginFormI = (props) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
@@ -70,4 +70,6 @@ const LoginForm = (props) => {
   )
 }
 
-export default withRouter(LoginForm)
+const LoginForm = withRouter(LoginFormI)
+
+export { LoginForm }

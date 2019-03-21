@@ -1,12 +1,7 @@
 import axios from 'axios'
+import Qs from 'qs'
 
 const baseURL = `http://957427771.natapp1.cc`
-
-// export const getContent = () => {
-//   return new Promise(resolved => {
-//     resolved(data)
-//   })
-// }
 
 export const getContent = () =>
   axios({
@@ -28,7 +23,6 @@ export const getCurrentMembers = async () => {
   list.map(e => {
     return members = members.concat(e.members)
   })
-  console.log(members)
   return members
 }
 
@@ -37,7 +31,7 @@ export const sendMessage = data =>
     method: 'POST',
     url: '/message',
     baseURL,
-    data,
+    data: Qs.stringify(data),
     headers: {
       jwt: window.sessionStorage.getItem('jwt')
     }
