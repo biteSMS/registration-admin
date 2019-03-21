@@ -1,4 +1,5 @@
-#比赛报名后台管理系统
+# 比赛后台报名管理系统
+
 ## Available Scripts
 
 In the project directory, you can run:
