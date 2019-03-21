@@ -70,6 +70,4 @@ const LoginFormI = (props) => {
   )
 }
 
-const LoginForm = withRouter(LoginFormI)
-
-export { LoginForm }
+export const LoginForm = withRouter(LoginFormI)

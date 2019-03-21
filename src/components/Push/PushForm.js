@@ -129,6 +129,4 @@ const PushFormI = (props) => {
   )
 }
 
-const PushForm = withRouter(PushFormI)
-
-export { PushForm }
+export const PushForm = withRouter(PushFormI)

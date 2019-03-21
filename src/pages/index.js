@@ -1,2 +1,2 @@
-export { Admin } from './Admin'
-export { Login } from './Login'
+export * from './Admin'
+export * from './Login'
