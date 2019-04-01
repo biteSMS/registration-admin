@@ -44,3 +44,14 @@ export const Login = params =>
     baseURL,
     params
   })
+
+export const cancel = data =>
+  axios({
+    method: 'POST',
+    url: '/cancel',
+    baseURL,
+    data: Qs.stringify(data),
+    headers: {
+      jwt: window.sessionStorage.getItem('jwt')
+    }
+  })
